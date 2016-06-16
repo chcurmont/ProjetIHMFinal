@@ -46,8 +46,22 @@
             <Image Margin="200 0 0 0" Grid.ColumnSpan="2" Source="Images/p6.png" Stretch="Fill"/>
             <Border Grid.Column="0" BorderThickness="0,0,2,0" BorderBrush="DarkBlue" Opacity="0.45"/>
             <Image Source="Images/p8.jpg" Stretch="Fill"/>
-            <Image Source="Images/p18.jpg" Stretch="Fill" Grid.Column="0" Grid.Row="1" Margin="30,10"/>
-            <Border Margin="30,10" Grid.Column="0" Grid.Row="1" BorderBrush="#FFBB8D10" BorderThickness="1">
+            <Border BorderBrush="#FFBB8D10" Background="#FF530707" Margin="30,20,50,490" BorderThickness="1">
+                <TextBox Background="{x:Null}" Text="{Binding ResearchText}" Foreground="#FFBB8D10"/>
+            </Border>
+            <Border Margin="150,20,30,490" BorderThickness="1" BorderBrush="#FFBB8D10" Background="{x:Null}">
+                <Button Background="{x:Null}">
+                    <Button.Content>
+                        <StackPanel>
+                            <StackPanel.Children>
+                                <Image Source="Images/Microphone-icon.png" Stretch="Fill"/>
+                            </StackPanel.Children>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Border>
+            <Image Source="Images/p18.jpg" Stretch="Fill" Grid.Column="0" Grid.Row="1" Margin="30,50,30,10"/>
+            <Border Margin="30,50,30,10" Grid.Column="0" Grid.Row="1" BorderBrush="#FFBB8D10" BorderThickness="1">
                 <ListBox Background="{x:Null}" x:Name="ListeEvenement" ItemsSource="{Binding ListeEvent}" FontSize="15" FontWeight="DemiBold" SelectedItem="{Binding Event}" IsSynchronizedWithCurrentItem="True"/>
             </Border>
             <Grid Grid.Column="1" Margin="30,10">
