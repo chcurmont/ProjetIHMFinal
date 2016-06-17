@@ -5,18 +5,28 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProjetIHM
 {
     public class SpeechToTextTools
     {
-        private const string _subscriptionKey = "2d4d2895e4794ed29a189c66229aab7e";
-        public string SubscriptionKey
+        private string _primarySubscriptionKey = ConfigurationManager.AppSettings["primaryKey"];
+        public string PrimarySubscriptionKey
         {
             get
             {
-                return _subscriptionKey;
+                return _primarySubscriptionKey;
+            }
+        }
+
+        private string _secondarySubscriptionKey = ConfigurationManager.AppSettings["secondaryKey"];
+        public string SecondarySubscriptionKey
+        {
+            get
+            {
+                return _secondarySubscriptionKey;
             }
         }
 
@@ -33,8 +43,8 @@ namespace ProjetIHM
             }
         }
 
-        private MicrophoneRecognitionClientWithIntent _micClient;
-        public MicrophoneRecognitionClientWithIntent MicClient
+        private MicrophoneRecognitionClient _micClient;
+        public MicrophoneRecognitionClient MicClient
         {
             get
             {
@@ -74,13 +84,6 @@ namespace ProjetIHM
 
         public SpeechToTextTools()
         {
-#pragma warning disable CS0612 // Le type ou le membre est obsolète
-            MicClient = SpeechRecognitionServiceFactory.CreateMicrophoneClientWithIntent("fr-FR", SubscriptionKey, ConfigurationManager.AppSettings["LuisAppID"], ConfigurationManager.AppSettings["luisSubscriptionID"]);
-#pragma warning restore CS0612 // Le type ou le membre est obsolète
-            MicClient.OnIntent += onIntentHandler;
-            MicClient.OnResponseReceived += OnMicShortPhraseReceiveHandler;
-            MicClient.OnPartialResponseReceived += OnPartialReponseReceiveHandler;
-            MicClient.OnConversationError += OnConversationErrorHandler;
             Error = false;
             IsMicroUse = false;
             RecognizeText = new List<string>();
@@ -89,12 +92,18 @@ namespace ProjetIHM
         public void start()
         {
             IsMicroUse = true;
+            MicClient = SpeechRecognitionServiceFactory.CreateMicrophoneClient(SpeechRecognitionMode.ShortPhrase, "fr-FR", PrimarySubscriptionKey, SecondarySubscriptionKey);
+            MicClient.OnIntent += onIntentHandler;
+            MicClient.OnResponseReceived += OnMicShortPhraseReceiveHandler;
+            MicClient.OnPartialResponseReceived += OnPartialReponseReceiveHandler;
+            MicClient.OnConversationError += OnConversationErrorHandler;
             MicClient.StartMicAndRecognition();
         }
 
         private void onIntentHandler(object sender, SpeechIntentEventArgs e)
         {
-            Console.WriteLine("{0}", e.Payload);
+            RecognizeText.Add(e.Payload);
+            MicClient.EndMicAndRecognition();
         }
 
         private void OnConversationErrorHandler(object sender,SpeechErrorEventArgs e)

@@ -56,7 +56,7 @@ namespace ProjetIHM
             set
             {
                 _listeEventToShow = value;
-                if(ListeEventToShow.Count()>0) { Event = ListeEventToShow[0]; }
+                if(ListeEventToShow.Count()!=0 && HasSearch) { Event = ListeEventToShow[0]; }
                 NotifyPropertyChanged("ListeEvent");
                 NotifyPropertyChanged("Event");
             }
@@ -113,6 +113,20 @@ namespace ProjetIHM
         #endregion
 
         #region Attributes
+
+        public bool HasSearch
+        {
+            get
+            {
+                return _hasSearch;
+            }
+            set
+            {
+                _hasSearch = value;
+            }
+        }
+        private bool _hasSearch;
+
         public Internaute Spectator
         {
             get { return _spectator; }
@@ -156,7 +170,7 @@ namespace ProjetIHM
                 DeleteCommand.RaiseCanExecuteChanged();
                 if ((object)ListeSpeaker == null) { ListeSpeaker=new ObservableCollection<Intervenant>(); }
                 if ((object)ListeSpectator == null) { ListeSpectator=new ObservableCollection<Internaute>(); }
-                if ((object)_event == null) { return; }
+                if ((object)_event == null) { _event = _listeEventToShow[0]; }
                 if (_event.Inscrits != ListeSpectator.ToList()) { ListeSpectator = ListToObservableCollectionConverter.Convert(_event.Inscrits); }
                 if (_event.Intervenants != ListeSpeaker.ToList()) { ListeSpeaker = ListToObservableCollectionConverter.Convert(_event.Intervenants); }
                 NotifyPropertyChanged("Event");
@@ -176,8 +190,8 @@ namespace ProjetIHM
             }
             set
             {
+                HasSearch = true;
                 _searchWord = value;
-                if(_searchWord=="" || _searchWord == null) { return; }
                 UpdateListeEvent();
                 NotifyPropertyChanged("SearchWord");
                 MainVocalSearch.RaiseCanExecuteChanged();
@@ -189,6 +203,7 @@ namespace ProjetIHM
 
         public EventViewModel()
         {
+            HasSearch = false;
             SpeechRecognitionTool = new SpeechToTextTools();
             AddCommand = new DelegateCommand(OnAddCommand, CanExecuteAdd);
             EditCommand = new DelegateCommand(OnEditCommand, CanExecuteEdit);
@@ -203,6 +218,7 @@ namespace ProjetIHM
         #region Methods
         private void UpdateListeEvent()
         {
+            if (_searchWord == "" || _searchWord == null) { ListeEventToShow=ListToObservableCollectionConverter.Convert(ListeEvent); }
             ObservableCollection<Evenement> tmp = new ObservableCollection<Evenement>();
             Regex r = new Regex("^.*" + SearchWord.ToLower() + ".*$");
             for(int i = 0; i < ListeEvent.Count(); i++)
@@ -354,18 +370,21 @@ namespace ProjetIHM
         {
             try
             {
-                SpeechRecognitionTool.RecognizeText.Clear();
-                SpeechRecognitionTool.RecognizeText[0] = "";
+                if (SpeechRecognitionTool.RecognizeText.Count() != 0) { SpeechRecognitionTool.RecognizeText.Clear(); }
+                SpeechRecognitionTool.RecognizeText.Add("");
                 SpeechRecognitionTool.start();
+                MainVocalSearch.RaiseCanExecuteChanged();
                 while (SpeechRecognitionTool.IsMicroUse) { }
-                if(SpeechRecognitionTool.RecognizeText==null || ((SpeechRecognitionTool.RecognizeText.Count==1 || SpeechRecognitionTool.Error) && SpeechRecognitionTool.RecognizeText[0] == ""))
+                if(SpeechRecognitionTool.RecognizeText==null || ((SpeechRecognitionTool.RecognizeText.Count==0 || SpeechRecognitionTool.Error) && SpeechRecognitionTool.RecognizeText[0] == ""))
                 {
                     throw (new Exception("Erreur de reconnaissance vocale:\n"));
                 }
                 SearchWord = FindGoodString(SpeechRecognitionTool.RecognizeText);
+                SpeechRecognitionTool.MicClient.EndMicAndRecognition();
             }
             catch(Exception E)
             {
+                SpeechRecognitionTool.MicClient.EndMicAndRecognition();
                 ExceptionViewModel v = new ExceptionViewModel(E);
                 ExceptionView ExceptionWindow = new ExceptionView();
                 ExceptionWindow.DataContext = v;
@@ -393,7 +412,7 @@ namespace ProjetIHM
 
         private bool CanExecuteMainVocalSearch(object o)
         {
-            return SpeechRecognitionTool.IsMicroUse;
+            return !SpeechRecognitionTool.IsMicroUse;
         }
         #endregion
     }

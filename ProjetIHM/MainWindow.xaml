@@ -21,17 +21,17 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Margin="85,20" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"  Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
+            <Button Margin="85,20" Grid.Column="0" Content="Add a person" Command="{Binding AddCommand}"  Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
                 <Button.Effect>
                     <DropShadowEffect Direction="225" Opacity="0.45" Color="#FFBB8D10" RenderingBias="Quality"/>
                 </Button.Effect>
             </Button>
-            <Button Margin="85,20" Content="modify" Grid.Column="1" Command="{Binding EditCommand}" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
+            <Button Margin="85,20" Content="modify a person" Grid.Column="1" Command="{Binding EditCommand}" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
                 <Button.Effect>
                     <DropShadowEffect Direction="280" RenderingBias="Quality" Color="#FFBB8D10" Opacity="0.45"/>
                 </Button.Effect>
             </Button>
-            <Button Margin="85,20" Content="Delete" Grid.Column="2" Command="{Binding DeleteCommand}" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
+            <Button Margin="85,20" Content="Delete a person" Grid.Column="2" Command="{Binding DeleteCommand}" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
                 <Button.Effect>
                     <DropShadowEffect RenderingBias="Quality" Color="#FFBB8D10" Direction="325" Opacity="0.45"/>
                 </Button.Effect>
@@ -47,10 +47,10 @@
             <Border Grid.Column="0" BorderThickness="0,0,2,0" BorderBrush="DarkBlue" Opacity="0.45"/>
             <Image Source="Images/p8.jpg" Stretch="Fill"/>
             <Border BorderBrush="#FFBB8D10" Background="#FF530707" Margin="30,20,50,490" BorderThickness="1">
-                <TextBox Background="{x:Null}" Text="{Binding SearchWord, UpdateSourceTrigger=PropertyChanged}" Foreground="#FFBB8D10"/>
+                <TextBox Background="{x:Null}" Text="{Binding SearchWord, UpdateSourceTrigger=PropertyChanged}" Foreground="#FFBB8D10" ToolTip="Search"/>
             </Border>
             <Border Margin="150,20,30,490" BorderThickness="1" BorderBrush="#FFBB8D10" Background="{x:Null}">
-                <Button Background="{x:Null}" Command="{Binding MainVocalSearch}">
+                <Button Background="{x:Null}" Command="{Binding MainVocalSearch}" ToolTip="Don't use! It have to work but it doesn't...">
                     <Button.Content>
                         <StackPanel>
                             <StackPanel.Children>
@@ -60,10 +60,20 @@
                     </Button.Content>
                 </Button>
             </Border>
-            <Image Source="Images/p18.jpg" Stretch="Fill" Grid.Column="0" Grid.Row="1" Margin="30,50,30,10"/>
-            <Border Margin="30,50,30,10" Grid.Column="0" Grid.Row="1" BorderBrush="#FFBB8D10" BorderThickness="1">
+            <Image Source="Images/p18.jpg" Stretch="Fill" Grid.Column="0" Grid.Row="1" Margin="30,50,30,150"/>
+            <Border Margin="30,50,30,150" Grid.Column="0" Grid.Row="1" BorderBrush="#FFBB8D10" BorderThickness="1">
                 <ListBox Background="{x:Null}" x:Name="ListeEvenement" ItemsSource="{Binding ListeEventToShow, UpdateSourceTrigger=PropertyChanged}" FontSize="15" FontWeight="DemiBold" SelectedItem="{Binding Event}" IsSynchronizedWithCurrentItem="True"/>
             </Border>
+            <Grid Margin="30,400,30,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Content="Add an Event" Margin="0,10,0,10" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold"/>
+                <Button Content="Modify an Event" Grid.Row="1" Margin="0,10,0,10" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold"/>
+                <Button Content="Delete an Event" Grid.Row="2" Margin="0,10,0,10" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold"/>
+            </Grid>
             <Grid Grid.Column="1" Margin="30,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
@@ -114,7 +124,7 @@
                             <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Intervention summary:" FontSize="18" FontWeight="DemiBold" Foreground="#FFBB8D10"/>
                         </Border>
                         <Border Grid.Row="1" BorderBrush="#FFBB8D10" Background="#FF530707" Margin="100,0,-247,0" BorderThickness="1">
-                            <TextBlock x:Name="ResumeEvenement" Text="{Binding speaker.TitreDIntervention}" FontSize="16" Foreground="white"/>
+                            <TextBlock x:Name="ResumeEvenement" Text="{Binding Speaker.TitreDIntervention}" FontSize="16" Foreground="white" Margin="0,-1,-0.4,1"/>
                         </Border>
                     </Grid>
                 </Grid>
@@ -126,8 +136,8 @@
                 </Border>
                 <Image Source="Images/p18.jpg" Grid.Column="0" Margin="80,10" Grid.Row="3" Stretch="Fill"/>
                 <Image Source="Images/p18.jpg" Grid.Column="1" Margin="80,10" Grid.Row="3" Stretch="Fill"/>
-                <ListBox Grid.Row="3" Grid.Column="0" Margin="80,10" Background="{x:Null}" x:Name="ListeIntervenant" ItemsSource="{Binding ListeSpeaker, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding speaker}" BorderBrush="#FFBB8D10" BorderThickness="3" FontSize="15" FontWeight="DemiBold" Foreground="Black" IsSynchronizedWithCurrentItem="True"/>
-                <ListBox Grid.Row="3" Grid.Column="1" Margin="80,10" x:Name="ListeSpectateur" ItemsSource="{Binding ListeSpectator, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding spectator}" BorderBrush="#FFBB8D10" BorderThickness="3" FontSize="15" FontWeight="DemiBold" Background="{x:Null}" Foreground="Black" IsSynchronizedWithCurrentItem="True"/>
+                <ListBox Grid.Row="3" Grid.Column="0" Margin="80,10" Background="{x:Null}" x:Name="ListeIntervenant" ItemsSource="{Binding ListeSpeaker, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Speaker}" BorderBrush="#FFBB8D10" BorderThickness="3" FontSize="15" FontWeight="DemiBold" Foreground="Black" IsSynchronizedWithCurrentItem="True"/>
+                <ListBox Grid.Row="3" Grid.Column="1" Margin="80,10" x:Name="ListeSpectateur" ItemsSource="{Binding ListeSpectator, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Spectator}" BorderBrush="#FFBB8D10" BorderThickness="3" FontSize="15" FontWeight="DemiBold" Background="{x:Null}" Foreground="Black" IsSynchronizedWithCurrentItem="True"/>
             </Grid>
         </Grid>
     </Grid>
