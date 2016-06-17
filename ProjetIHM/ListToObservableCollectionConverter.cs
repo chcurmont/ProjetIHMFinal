@@ -19,10 +19,21 @@ namespace ProjetIHM
             }
             return tmp;
         }
+
         public static ObservableCollection<Internaute> Convert(List<Internaute> o)
         {
             ObservableCollection<Internaute> tmp = new ObservableCollection<Internaute>();
             foreach (Internaute i in o)
+            {
+                tmp.Add(i);
+            }
+            return tmp;
+        }
+
+        public static ObservableCollection<Evenement> Convert(List<Evenement> o)
+        {
+            ObservableCollection<Evenement> tmp = new ObservableCollection<Evenement>();
+            foreach (Evenement i in o)
             {
                 tmp.Add(i);
             }

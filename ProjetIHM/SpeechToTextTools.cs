@@ -46,6 +46,32 @@ namespace ProjetIHM
             }
         }
 
+        private bool _error;
+        public bool Error
+        {
+            get
+            {
+                return _error;
+            }
+            set
+            {
+                _error = value;
+            }
+        }
+
+        private bool _isMicroUse;
+        public bool IsMicroUse
+        {
+            get
+            {
+                return _isMicroUse;
+            }
+            set
+            {
+                _isMicroUse = value;
+            }
+        }
+
         public SpeechToTextTools()
         {
 #pragma warning disable CS0612 // Le type ou le membre est obsolète
@@ -54,8 +80,16 @@ namespace ProjetIHM
             MicClient.OnIntent += onIntentHandler;
             MicClient.OnResponseReceived += OnMicShortPhraseReceiveHandler;
             MicClient.OnPartialResponseReceived += OnPartialReponseReceiveHandler;
-            MicClient.OnConversationError+=
+            MicClient.OnConversationError += OnConversationErrorHandler;
+            Error = false;
+            IsMicroUse = false;
+            RecognizeText = new List<string>();
+        }
 
+        public void start()
+        {
+            IsMicroUse = true;
+            MicClient.StartMicAndRecognition();
         }
 
         private void onIntentHandler(object sender, SpeechIntentEventArgs e)
@@ -63,9 +97,17 @@ namespace ProjetIHM
             Console.WriteLine("{0}", e.Payload);
         }
 
+        private void OnConversationErrorHandler(object sender,SpeechErrorEventArgs e)
+        {
+            RecognizeText.Add(e.SpeechErrorText);
+            RecognizeText.Add(e.SpeechErrorCode.ToString());
+            Error = true;
+        }
+
         private void OnMicShortPhraseReceiveHandler(object sender,SpeechResponseEventArgs e)
         {
             MicClient.EndMicAndRecognition();
+            IsMicroUse = false;
             for(int i = 0; i < e.PhraseResponse.Results.Length; i++)
             {
                 RecognizeText.Add(e.PhraseResponse.Results[i].DisplayText);
@@ -74,7 +116,7 @@ namespace ProjetIHM
 
         private void OnPartialReponseReceiveHandler(object sender, PartialSpeechResponseEventArgs e)
         {
-            RecognizeText[0] = e.PartialResult;
+            RecognizeText.Add(e.PartialResult);
         }
     }
 }
