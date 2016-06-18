@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Metier;
 
-namespace ProjetIHM
+namespace Factories
 {
-    public class ListToObservableCollectionConverter
+    public class ListToObservableCollectionFactory
     {
         public static ObservableCollection<Intervenant> Convert(List<Intervenant> o) 
         {

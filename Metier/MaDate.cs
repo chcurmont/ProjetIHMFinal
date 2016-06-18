@@ -34,7 +34,10 @@ namespace Metier
             return (Jour<10?"0"+Jour.ToString():Jour.ToString()) + "/" + (Mois<10?"0"+Mois.ToString():Mois.ToString()) + "/" + Annee + " " + (Heure<10?"0"+Heure.ToString():Heure.ToString()) + ":" + (Minute<10?"0"+Minute.ToString():Minute.ToString());
         }
 
-
+        public static string DateToString(MaDate d)
+        {
+            return (d.Annee + "-" + d.Mois + "-" + d.Jour + "-" + d.Heure + "-" + d.Minute);
+        }
 
 
         /// <summary>

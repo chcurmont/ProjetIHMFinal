@@ -12,20 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjetIHM
+namespace Views
 {
     /// <summary>
-    /// Logique d'interaction pour EditView.xaml
+    /// Logique d'interaction pour WaitingLineView.xaml
     /// </summary>
-    public partial class EditView : Window
+    public partial class WaitingLineView : Window
     {
-        public EditView()
+        public WaitingLineView()
         {
             InitializeComponent();
-        }
-        private void Modifier(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

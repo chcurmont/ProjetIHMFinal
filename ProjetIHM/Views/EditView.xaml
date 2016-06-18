@@ -1,7 +1,7 @@
-﻿<Window x:Class="ProjetIHM.AddView"
+﻿<Window x:Class="Views.EditView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AddView" Height="300" Width="300" ResizeMode="CanMinimize">
+        Title="EditView" Height="300" Width="300" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style x:Key="myButtonStyle" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -51,7 +51,7 @@
                 <TextBlock Grid.Row="0"  Text="Intervention Description:"/>
                 <TextBox Grid.Row="1" x:Name="Description" Text="{Binding Intervention}"  BorderThickness="0,0,0,0" IsReadOnly="{Binding TestI}"/>
             </Grid>
-            <Button Margin="105,15" Content="Add" Grid.Row="2" Click="Ajouter" Command="{Binding NormalCloseCommand}" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
+            <Button Margin="105,15" Content="Edit" Grid.Row="2" Click="Modifier" Command="{Binding NormalCloseCommand}" Opacity="0.7" BorderThickness="0" FontWeight="ExtraBold">
                 <Button.Effect>
                     <DropShadowEffect Direction="280" RenderingBias="Quality" Color="#FFBB8D10" Opacity="0.45"/>
                 </Button.Effect>

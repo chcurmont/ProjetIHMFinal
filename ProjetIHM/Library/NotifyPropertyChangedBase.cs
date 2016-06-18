@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetIHM
+namespace Library
 {
     public class NotifyPropertyChangedBase : INotifyPropertyChanged
     {

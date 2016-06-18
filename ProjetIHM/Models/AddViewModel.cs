@@ -1,11 +1,13 @@
 ﻿using Library;
+using ProjetIHM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Views;
 
-namespace ProjetIHM
+namespace Models
 {
     class AddViewModel:NotifyPropertyChangedBase
     {

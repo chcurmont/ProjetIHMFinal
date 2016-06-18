@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetIHM
+namespace DAO
 {
     class EventDAO
     {
@@ -13,6 +13,11 @@ namespace ProjetIHM
         {
             SiteWeb sw = new SiteWeb();
             return sw.MiseAJour();
+        }
+
+        public static void SetAllEvent(List<Evenement> l)
+        {
+            SiteWeb.MiseAjourReverse(l);
         }
     }
 }

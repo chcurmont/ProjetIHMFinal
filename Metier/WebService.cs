@@ -45,7 +45,21 @@ namespace Metier
             return listtemp;
         }
 
-
+        public static void EnregistrerFichier(List<Evenement> l, string nomFichier)
+        {
+            string ligne;
+            System.IO.StreamWriter file = new System.IO.StreamWriter(nomFichier);
+            for (int i = 0; i < l.Count(); i++)
+            {
+                ligne = l[i].Nom+"|"+MaDate.DateToString(l[i].Date) + "|" + l[i].NbPlaces + "|" + l[i].Lieu;
+                foreach(Intervenant j in l[i].Intervenants)
+                {
+                    ligne += "|" + j.Nom+"|"+j.TitreDIntervention;
+                }
+                file.WriteLine(ligne);
+            }
+            file.Close();
+        }
 
 
     }

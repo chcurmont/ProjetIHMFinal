@@ -1,5 +1,4 @@
-﻿using Metier;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjetIHM
+namespace Views
 {
     /// <summary>
-    /// Logique d'interaction pour AddView.xaml
+    /// Logique d'interaction pour EditView.xaml
     /// </summary>
-    public partial class AddView : Window
+    public partial class EditView : Window
     {
-        public AddView()
+        public EditView()
         {
             InitializeComponent();
         }
-
-        private void Ajouter(object sender, RoutedEventArgs e)
+        private void Modifier(object sender, RoutedEventArgs e)
         {
             Close();
         }

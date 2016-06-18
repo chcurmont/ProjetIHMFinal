@@ -12,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjetIHM
+namespace Views
 {
     /// <summary>
-    /// Logique d'interaction pour DeleteViewModel.xaml
+    /// Logique d'interaction pour AddEventView.xaml
     /// </summary>
-    public partial class DeleteView : Window
+    public partial class AddEventView : Window
     {
-        public DeleteView()
+        public AddEventView()
         {
             InitializeComponent();
         }
-        private void supprimer(object sender, RoutedEventArgs e)
+
+        private void Ajouter(object sender, RoutedEventArgs e)
         {
             Close();
         }

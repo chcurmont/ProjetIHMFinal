@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using DAO;
+using Models;
+using System.Windows;
 
 namespace ProjetIHM
 {
@@ -13,6 +15,11 @@ namespace ProjetIHM
             main = new EventViewModel();
             InitializeComponent();
             DataContext = main;
+        }
+
+        private void Fermeture(object sender, System.EventArgs e)
+        {
+            EventDAO.SetAllEvent(main.ListeEvent);
         }
     }
 }

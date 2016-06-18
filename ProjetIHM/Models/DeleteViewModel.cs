@@ -1,28 +1,20 @@
 ﻿using Library;
+using ProjetIHM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Views;
 
-namespace ProjetIHM
+namespace Models
 {
-    class EditViewModel:NotifyPropertyChangedBase
+    class DeleteViewModel:NotifyPropertyChangedBase
     {
         public DelegateCommand IntervenantCommand { get; set; }
         public DelegateCommand InternauteCommand { get; set; }
         public DelegateCommand NormalCloseCommand { get; set; }
 
-        public string Intervention
-        {
-            get;
-            set;
-        }
-        public string Nom
-        {
-            get;
-            set;
-        }
         public bool TestI
         {
             get { return mTestI; }
@@ -31,7 +23,6 @@ namespace ProjetIHM
                 mTestI = value;
                 if ((object)this != null)
                 {
-                    NotifyPropertyChanged("Intervention");
                     NotifyPropertyChanged("TestI");
                     InternauteCommand.RaiseCanExecuteChanged();
                     IntervenantCommand.RaiseCanExecuteChanged();
@@ -50,10 +41,8 @@ namespace ProjetIHM
         }
         private bool mNormalEnd;
 
-        public EditViewModel(EditView modifier)
+        public DeleteViewModel(DeleteView supprimer)
         {
-            Intervention = " ";
-            Nom = " ";
             IntervenantCommand = new DelegateCommand(OnIntervenantAction, CanExecuteIntervenant);
             InternauteCommand = new DelegateCommand(OnInternauteAction, CanExecuteInternaute);
             NormalCloseCommand = new DelegateCommand(OnNormalCloseAction, CanExecuteNormalClose);
@@ -63,7 +52,6 @@ namespace ProjetIHM
 
         public void OnIntervenantAction(object o)
         {
-            Intervention = " ";
             TestI = false;
         }
         public void OnInternauteAction(object o)

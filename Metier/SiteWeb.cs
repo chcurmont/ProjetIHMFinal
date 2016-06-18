@@ -75,6 +75,9 @@ namespace Metier
             return Evenements;
         }
 
-       
+       public static void MiseAjourReverse(List<Evenement> l)
+        {
+            WebService.EnregistrerFichier(l, "Donnee.txt");
+        }
     }
 }

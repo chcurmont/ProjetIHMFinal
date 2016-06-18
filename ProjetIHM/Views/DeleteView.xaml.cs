@@ -12,16 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjetIHM
+namespace Views
 {
     /// <summary>
-    /// Logique d'interaction pour ExceptionView.xaml
+    /// Logique d'interaction pour DeleteViewModel.xaml
     /// </summary>
-    public partial class ExceptionView : Window
+    public partial class DeleteView : Window
     {
-        public ExceptionView()
+        public DeleteView()
         {
             InitializeComponent();
+        }
+        private void supprimer(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
